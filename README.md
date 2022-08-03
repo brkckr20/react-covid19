@@ -1,0 +1,1 @@
+# Covid 19 bilgilerini gösteren React uygulamasıdır.
