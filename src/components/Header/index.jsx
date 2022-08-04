@@ -1,17 +1,16 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+
+import { getCountries } from '../../api'
 
 const Header = () => {
 
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState("turkey");
     const [countries, setCountries] = useState([]);
 
+
     useEffect(() => {
-        const getCountries = async () => {
-            const { data } = await axios.get("https://api.covid19api.com/countries");
-            setCountries(data);
-        }
-        getCountries();
+        getCountries().then(data => setCountries(data));
+
     }, [country])
 
     return (
