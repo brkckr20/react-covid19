@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 import { getCountries } from '../../api'
 
-const Header = () => {
+const Header = ({ country, setCountry }) => {
 
-    const [country, setCountry] = useState("turkey");
     const [countries, setCountries] = useState([]);
 
 
     useEffect(() => {
         getCountries().then(data => setCountries(data));
-
     }, [country])
 
     return (
