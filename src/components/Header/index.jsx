@@ -29,7 +29,6 @@ const Header = ({ country, setCountry }) => {
                     }
 
                 </select>
-                <span className='text-white'>{country}</span>
             </div>
 
         </div>

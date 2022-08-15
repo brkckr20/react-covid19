@@ -10,7 +10,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+import moment from 'moment';
 
 import { getByCountry } from '../../api'
 
@@ -49,23 +49,29 @@ const Chart = ({ country }) => {
         },
     };
 
-    const labels = ['2019', '2020', '2021', '2022'];
+    const labels = covidDatas.map(date => moment(date.Date).format('L'));
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Ölüm',
-                data: labels.map(() => faker.datatype.number({ min: -2000, max: 1000 })),
+                data: covidDatas.map(veri => veri.Deaths),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
-                label: 'İyileşme',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                label: 'Vaka',
+                data: covidDatas.map(veri => veri.Confirmed),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
+            {
+                label: 'İyileşen',
+                data: covidDatas.map(veri => veri.Recovered),
+                borderColor: '	rgb(34,139,34)',
+                backgroundColor: 'rgba(34, 139, 34, 0.5)',
+            }
         ],
     };
 
