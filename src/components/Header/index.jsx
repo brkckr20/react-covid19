@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect/* , useState */ } from 'react'
+//import { getCountries } from '../../api'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchCountries } from '../../redux/covid19Slice'
 
-import { getCountries } from '../../api'
 
-const Header = ({ country, setCountry }) => {
+const Header = ({ /* country, */ setCountry }) => {
 
-    const [countries, setCountries] = useState([]);
+    /* const [countries, setCountries] = useState([]); */
+    const allCountries = useSelector(state => state.covid.countries);
+    const status = useSelector(state => state.covid.status);
 
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getCountries().then(data => setCountries(data));
-    }, [country])
+        /* getCountries().then(data => setCountries(data)); */
+        dispatch(fetchCountries())
+        console.log(allCountries);
+    }, [dispatch])
 
     return (
         <div
@@ -23,12 +31,20 @@ const Header = ({ country, setCountry }) => {
             <div className="col-lg-10 d-flex align-items-center">
                 <select className="custom-select custom-select-lg" onChange={(e) => setCountry(e.target.value)}>
                     {
-                        countries && countries.sort().map(c => (
-                            <option key={c.ISO2} value={c.Slug}>{c.Country}</option>
+                        allCountries && allCountries.map(c => (
+                            status === 'loading' ? (
+                                <option key={c.ISO2}>Yükleniyor</option>
+                            ) : (
+                                <option key={c.ISO2} value={c.Slug}>{c.Country}</option>
+                            )
+
                         ))
                     }
 
                 </select>
+                {
+
+                }
             </div>
 
         </div>
