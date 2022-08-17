@@ -2,6 +2,7 @@ import React, { useEffect/* , useState */ } from 'react'
 //import { getCountries } from '../../api'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCountries } from '../../redux/covid19Slice'
+import { changeSelectCountry, getByCountryData } from '../../redux/covid19Slice'
 
 
 const Header = ({ /* country, */ setCountry }) => {
@@ -9,6 +10,7 @@ const Header = ({ /* country, */ setCountry }) => {
     /* const [countries, setCountries] = useState([]); */
     const allCountries = useSelector(state => state.covid.countries);
     const status = useSelector(state => state.covid.status);
+    const selectCountry = useSelector(state => state.covid.selectCountry)
 
 
     const dispatch = useDispatch();
@@ -16,8 +18,8 @@ const Header = ({ /* country, */ setCountry }) => {
     useEffect(() => {
         /* getCountries().then(data => setCountries(data)); */
         dispatch(fetchCountries())
-        console.log(allCountries);
-    }, [dispatch])
+        dispatch(getByCountryData())
+    }, [dispatch, selectCountry])
 
     return (
         <div
@@ -29,7 +31,7 @@ const Header = ({ /* country, */ setCountry }) => {
                 </div>
             </div>
             <div className="col-lg-10 d-flex align-items-center">
-                <select className="custom-select custom-select-lg" onChange={(e) => setCountry(e.target.value)}>
+                <select className="custom-select custom-select-lg" onChange={(e) => dispatch(changeSelectCountry(e.target.value))}>
                     {
                         allCountries && allCountries.map(c => (
                             status === 'loading' ? (
