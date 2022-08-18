@@ -29,12 +29,13 @@ export const covid19Slice = createSlice({
         }
     },
     extraReducers: {
+        [fetchCountries.pending]: (state, action) => {
+            state.status = "loading"
+        },
         [fetchCountries.fulfilled]: (state, action) => {
             state.countries = action.payload
             state.status = "succeeded"
-        },
-        [fetchCountries.pending]: (state, action) => {
-            state.status = "loading"
+            console.log(action.payload);
         },
         [fetchCountries.rejected]: (state, action) => {
             state.status = "failed";

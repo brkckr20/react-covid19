@@ -2,7 +2,7 @@ import React, { useEffect/* , useState */ } from 'react'
 //import { getCountries } from '../../api'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCountries } from '../../redux/covid19Slice'
-import { changeSelectCountry, getByCountryData } from '../../redux/covid19Slice'
+import { changeSelectCountry/* , getByCountryData */ } from '../../redux/covid19Slice'
 
 
 const Header = ({ /* country, */ setCountry }) => {
@@ -16,9 +16,8 @@ const Header = ({ /* country, */ setCountry }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        /* getCountries().then(data => setCountries(data)); */
+        console.log("header render edildi");
         dispatch(fetchCountries())
-        dispatch(getByCountryData())
     }, [dispatch, selectCountry])
 
     return (
@@ -44,9 +43,6 @@ const Header = ({ /* country, */ setCountry }) => {
                     }
 
                 </select>
-                {
-
-                }
             </div>
 
         </div>
