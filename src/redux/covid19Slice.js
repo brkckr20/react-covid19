@@ -8,9 +8,10 @@ export const fetchCountries = createAsyncThunk("covid/fetchCountries", async () 
     return res.data
 });
 
-export const getByCountryData = createAsyncThunk("covid/getByCountryData", async (country = 'turkey') => {
+export const getByCountryData = createAsyncThunk("covid/getByCountryData", async (country) => {
     const res = await axios.get(`${API_URL}/dayone/country/${country}`);
     return res.data;
+
 })
 
 export const covid19Slice = createSlice({
@@ -35,7 +36,6 @@ export const covid19Slice = createSlice({
         [fetchCountries.fulfilled]: (state, action) => {
             state.countries = action.payload
             state.status = "succeeded"
-            console.log(action.payload);
         },
         [fetchCountries.rejected]: (state, action) => {
             state.status = "failed";

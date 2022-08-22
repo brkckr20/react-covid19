@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -13,7 +13,6 @@ import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { getByCountry } from '../../api'
 import { getByCountryData } from '../../redux/covid19Slice'
 
 ChartJS.register(
@@ -36,9 +35,7 @@ const Chart = ({ country }) => {
     const selectCountry = useSelector(state => state.covid.selectCountry)
 
     useEffect(() => {
-        console.log("chart render edildi");
         dispatch(getByCountryData(selectCountry));
-        console.log("secilen ulke", selectCountry);
     }, [selectCountry, dispatch]);
 
     const options = {

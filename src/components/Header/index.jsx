@@ -5,9 +5,8 @@ import { fetchCountries } from '../../redux/covid19Slice'
 import { changeSelectCountry/* , getByCountryData */ } from '../../redux/covid19Slice'
 
 
-const Header = ({ /* country, */ setCountry }) => {
+const Header = () => {
 
-    /* const [countries, setCountries] = useState([]); */
     const allCountries = useSelector(state => state.covid.countries);
     const status = useSelector(state => state.covid.status);
     const selectCountry = useSelector(state => state.covid.selectCountry)
@@ -16,7 +15,6 @@ const Header = ({ /* country, */ setCountry }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("header render edildi");
         dispatch(fetchCountries())
     }, [dispatch, selectCountry])
 
@@ -34,7 +32,7 @@ const Header = ({ /* country, */ setCountry }) => {
                     {
                         allCountries && allCountries.map(c => (
                             status === 'loading' ? (
-                                <option key={c.ISO2}>Yükleniyor</option>
+                                <option key={c.ISO2}>Yükleniyor...</option>
                             ) : (
                                 <option key={c.ISO2} value={c.Slug}>{c.Country}</option>
                             )
